@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'views/user_form.dart';
+import 'views/user_form_without_form.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'App GetX',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: UserForm(),
+      home: UserFormWithoutForm(),
     );
   }
 }
