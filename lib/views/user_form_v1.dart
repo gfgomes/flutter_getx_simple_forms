@@ -1,11 +1,11 @@
+// lib/views/user_form_v1.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_simple_form/controller/user_controller_v1.dart';
 import 'package:get/get.dart';
 
 class UserFormV1 extends StatelessWidget {
   final UserControllerV1 userController = Get.put(UserControllerV1());
-  final TextEditingController nameController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   UserFormV1({super.key});
 
@@ -24,52 +24,52 @@ class UserFormV1 extends StatelessWidget {
               key: _formKey,
               child: Column(
                 children: [
-                  Obx(() => TextFormField(
-                        controller: nameController,
-                        onChanged: userController.setName,
-                        decoration: InputDecoration(
-                          labelText: 'Nome',
-                          errorText: userController.nameError.value.isEmpty
-                              ? null
-                              : userController.nameError.value,
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Nome é obrigatório';
-                          }
-                          return null;
-                        },
-                      )),
+                  Obx(() {
+                    return TextFormField(
+                      initialValue: userController.getUserName(),
+                      onChanged: (value) {
+                        userController.setName(value);
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Nome',
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Nome é obrigatório';
+                        }
+                        return null;
+                      },
+                    );
+                  }),
                   const SizedBox(height: 20),
-                  Obx(() => DropdownButtonFormField<String>(
-                        value: userController.user.value.gender,
-                        onChanged: userController.setGender,
-                        items: ['Masculino', 'Feminino', 'Outro']
-                            .map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        decoration: InputDecoration(
-                          labelText: 'Gênero',
-                          errorText: userController.genderError.value.isEmpty
-                              ? null
-                              : userController.genderError.value,
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Gênero é obrigatório';
-                          }
-                          return null;
-                        },
-                      )),
+                  Obx(() {
+                    return DropdownButtonFormField<String>(
+                      value: userController.user.value.gender,
+                      onChanged: userController.setGender,
+                      items: ['Masculino', 'Feminino', 'Outro']
+                          .map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      decoration: const InputDecoration(
+                        labelText: 'Gênero',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Gênero é obrigatório';
+                        }
+                        return null;
+                      },
+                    );
+                  }),
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         userController.saveUser();
-                        nameController.clear();
+                        _formKey.currentState!.reset();
                         FocusScope.of(context).requestFocus(FocusNode());
                       }
                     },
@@ -80,7 +80,6 @@ class UserFormV1 extends StatelessWidget {
                     onPressed: () {
                       _formKey.currentState!.reset();
                       userController.clearUser();
-                      nameController.clear();
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
                     child: const Text('Limpar'),
@@ -90,22 +89,24 @@ class UserFormV1 extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: Obx(() => ListView.builder(
-                    itemCount: userController.userList.length,
-                    itemBuilder: (context, index) {
-                      final user = userController.userList[index];
-                      return ListTile(
-                        title: Text(user.name ?? ''),
-                        subtitle: Text(user.gender ?? ''),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            userController.deleteUser(index);
-                          },
-                        ),
-                      );
-                    },
-                  )),
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: userController.userList.length,
+                  itemBuilder: (context, index) {
+                    final user = userController.userList[index];
+                    return ListTile(
+                      title: Text(user.name ?? ''),
+                      subtitle: Text(user.gender ?? ''),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          userController.deleteUser(index);
+                        },
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
           ],
         ),
