@@ -50,7 +50,9 @@ class UserFormPage extends StatelessWidget {
                       )),
                   const SizedBox(height: 20),
                   Obx(() => DropdownButtonFormField<String>(
-                        value: userController.gender.value,
+                        value: userController.gender.value!.isEmpty
+                            ? null
+                            : userController.gender.value,
                         onChanged: userController.setGender,
                         items: ['Masculino', 'Feminino', 'Outro']
                             .map((String value) {
@@ -85,6 +87,7 @@ class UserFormPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
+                      _formKey.currentState!.reset();
                       userController.clearUser();
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
