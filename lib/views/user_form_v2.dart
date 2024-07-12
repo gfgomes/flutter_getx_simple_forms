@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_getx_simple_form/controller/user_controller_v2.dart';
 import 'package:get/get.dart';
 
-class UserForm extends StatelessWidget {
-  final UserController userController = Get.put(UserController());
+class UserFormV2 extends StatelessWidget {
+  final UserControllerV2 userController = Get.put(UserControllerV2());
   final _formKey = GlobalKey<FormState>();
 
-  UserForm({super.key});
+  UserFormV2({super.key});
 
   @override
   Widget build(BuildContext context) {
