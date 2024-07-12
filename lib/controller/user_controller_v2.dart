@@ -5,7 +5,7 @@ import '../models/user.dart';
 /*O código comentado é deixado de propósito para o usuário ver o que não é necessário.*/
 class UserControllerV2 extends GetxController {
   var nameController = TextEditingController().obs;
-  Rx<String?> gender = null.obs;
+  Rx<String?> gender = ''.obs;
   var userList = <User>[].obs;
 
   // Campos de validação
@@ -19,6 +19,10 @@ class UserControllerV2 extends GetxController {
 
   void setGender(String? selectedGender) {
     gender.value = selectedGender;
+    // gender.update((val) {
+    //   val = selectedGender;
+    // });
+    //update();
     //validateGender();
   }
 
@@ -56,7 +60,7 @@ class UserControllerV2 extends GetxController {
 
   void clearUser() {
     nameController.value.clear();
-    gender.value = null;
+    gender.value = '';
   }
 
   void deleteUser(int index) {

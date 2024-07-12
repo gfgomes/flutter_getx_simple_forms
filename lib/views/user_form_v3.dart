@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx_simple_form/controller/user_controller_v2.dart';
+import 'package:flutter_getx_simple_form/controller/user_controller_v3.dart';
 import 'package:get/get.dart';
+import 'user_list_page.dart';
 
-class UserFormV2 extends StatelessWidget {
-  final UserControllerV2 userController = Get.put(UserControllerV2());
+class UserFormPage extends StatelessWidget {
+  final UserController userController = Get.put(UserController());
   final _formKey = GlobalKey<FormState>();
 
-  UserFormV2({super.key});
+  UserFormPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Formulário de Usuário'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.list),
+            onPressed: () {
+              Get.to(UserListPage());
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -41,9 +50,7 @@ class UserFormV2 extends StatelessWidget {
                       )),
                   const SizedBox(height: 20),
                   Obx(() => DropdownButtonFormField<String>(
-                        value: userController.gender.value!.isEmpty
-                            ? null
-                            : userController.gender.value,
+                        value: userController.gender.value,
                         onChanged: userController.setGender,
                         items: ['Masculino', 'Feminino', 'Outro']
                             .map((String value) {
@@ -85,25 +92,6 @@ class UserFormV2 extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: Obx(() => ListView.builder(
-                    itemCount: userController.userList.length,
-                    itemBuilder: (context, index) {
-                      final user = userController.userList[index];
-                      return ListTile(
-                        title: Text(user.name ?? ''),
-                        subtitle: Text(user.gender ?? ''),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            userController.deleteUser(index);
-                          },
-                        ),
-                      );
-                    },
-                  )),
             ),
           ],
         ),

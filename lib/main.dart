@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_simple_form/views/user_form_v1.dart';
+import 'package:flutter_getx_simple_form/views/user_form_v2.dart';
+import 'package:flutter_getx_simple_form/views/user_form_v3.dart';
 import 'package:get/get.dart';
 import 'views/user_form_without_form.dart';
 
