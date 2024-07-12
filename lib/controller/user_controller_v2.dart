@@ -18,7 +18,7 @@ class UserControllerV2 extends GetxController {
   }
 
   void setGender(String? selectedGender) {
-    gender.value = selectedGender;
+    gender.value = selectedGender ?? '';
     // gender.update((val) {
     //   val = selectedGender;
     // });

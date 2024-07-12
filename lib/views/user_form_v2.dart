@@ -78,6 +78,7 @@ class UserFormV2 extends StatelessWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
+                      _formKey.currentState!.reset();
                       userController.clearUser();
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
