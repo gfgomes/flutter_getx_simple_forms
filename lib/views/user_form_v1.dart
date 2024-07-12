@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx_simple_form/controller/user_controller.dart';
+import 'package:flutter_getx_simple_form/controller/user_controller_v1.dart';
 import 'package:get/get.dart';
 
-class UserForm extends StatelessWidget {
-  final UserController userController = Get.put(UserController());
+class UserFormV1 extends StatelessWidget {
+  final UserControllerV1 userController = Get.put(UserControllerV1());
   final TextEditingController nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  UserForm({super.key});
+  UserFormV1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +78,7 @@ class UserForm extends StatelessWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
+                      _formKey.currentState!.reset();
                       userController.clearUser();
                       nameController.clear();
                       FocusScope.of(context).requestFocus(FocusNode());
