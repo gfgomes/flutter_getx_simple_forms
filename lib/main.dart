@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'App GetX',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: UserFormPage(),
+      home: UserFormPageV3(),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_getx_simple_form/controller/user_controller_v3.dart';
 import 'package:get/get.dart';
 
 class UserListPage extends StatelessWidget {
-  final UserController userController = Get.find<UserController>();
+  final UserControllerV3 userController = Get.find<UserControllerV3>();
 
   UserListPage({super.key});
 

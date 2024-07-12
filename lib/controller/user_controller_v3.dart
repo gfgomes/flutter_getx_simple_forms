@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/user.dart';
 
-class UserController extends GetxController {
+class UserControllerV3 extends GetxController {
   var nameController = TextEditingController().obs;
   Rx<String?> gender = ''.obs;
   var userList = <User>[].obs;

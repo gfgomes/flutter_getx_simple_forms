@@ -3,11 +3,11 @@ import 'package:flutter_getx_simple_form/controller/user_controller_v3.dart';
 import 'package:get/get.dart';
 import 'user_list_page.dart';
 
-class UserFormPage extends StatelessWidget {
-  final UserController userController = Get.put(UserController());
+class UserFormPageV3 extends StatelessWidget {
+  final UserControllerV3 userController = Get.put(UserControllerV3());
   final _formKey = GlobalKey<FormState>();
 
-  UserFormPage({super.key});
+  UserFormPageV3({super.key});
 
   @override
   Widget build(BuildContext context) {
