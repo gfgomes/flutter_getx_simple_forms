@@ -1,11 +1,16 @@
-import 'package:flutter_getx_simple_form/models/user.dart';
+// lib/controllers/user_controller_v1.dart
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import '../models/user.dart';
 
 class UserControllerV1 extends GetxController {
-  Rx<User> user = User.empty().obs;
-  RxList<User> userList = <User>[].obs;
+  var user = User.empty().obs;
+  var userList = <User>[].obs;
 
-  void setName(String? name) {
+  // TextEditingController para o campo de nome
+  TextEditingController nameController = TextEditingController();
+
+  void setName(String name) {
     user.update((val) {
       val?.name = name;
     });
@@ -31,9 +36,16 @@ class UserControllerV1 extends GetxController {
       val?.name = null;
       val?.gender = null;
     });
+    nameController.clear();
   }
 
   void deleteUser(int index) {
     userList.removeAt(index);
+  }
+
+  @override
+  void onClose() {
+    nameController.dispose();
+    super.onClose();
   }
 }

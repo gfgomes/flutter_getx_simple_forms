@@ -24,23 +24,21 @@ class UserFormV1 extends StatelessWidget {
               key: _formKey,
               child: Column(
                 children: [
-                  Obx(() {
-                    return TextFormField(
-                      initialValue: userController.getUserName(),
-                      onChanged: (value) {
-                        userController.setName(value);
-                      },
-                      decoration: const InputDecoration(
-                        labelText: 'Nome',
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Nome é obrigatório';
-                        }
-                        return null;
-                      },
-                    );
-                  }),
+                  TextFormField(
+                    controller: userController.nameController,
+                    onChanged: (value) {
+                      userController.setName(value);
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Nome',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Nome é obrigatório';
+                      }
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 20),
                   Obx(() {
                     return DropdownButtonFormField<String>(
@@ -69,8 +67,8 @@ class UserFormV1 extends StatelessWidget {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         userController.saveUser();
-                        _formKey.currentState!.reset();
-                        FocusScope.of(context).requestFocus(FocusNode());
+                        userController.clearUser();
+                        FocusScope.of(context).unfocus();
                       }
                     },
                     child: const Text('Salvar'),
@@ -80,7 +78,7 @@ class UserFormV1 extends StatelessWidget {
                     onPressed: () {
                       _formKey.currentState!.reset();
                       userController.clearUser();
-                      FocusScope.of(context).requestFocus(FocusNode());
+                      FocusScope.of(context).unfocus();
                     },
                     child: const Text('Limpar'),
                   ),
