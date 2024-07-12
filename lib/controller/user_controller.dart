@@ -60,7 +60,15 @@ class UserController extends GetxController {
       val?.name = null;
       val?.gender = null;
     });
+    clearErrors();
+  }
+
+  void clearErrors() {
     nameError.value = '';
     genderError.value = '';
+  }
+
+  void deleteUser(int index) {
+    userList.removeAt(index);
   }
 }

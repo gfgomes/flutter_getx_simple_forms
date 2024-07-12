@@ -49,6 +49,15 @@ class UserForm extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
+                userController.clearUser();
+                nameController.clear();
+                nameController.text = '';
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: const Text('Limpar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
                 if (userController.saveUser()) {
                   nameController.clear();
                   nameController.text = '';
@@ -56,16 +65,6 @@ class UserForm extends StatelessWidget {
                 }
               },
               child: const Text('Salvar'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                userController.clearUser();
-                nameController.clear();
-                nameController.text = '';
-                FocusScope.of(context).requestFocus(FocusNode());
-              },
-              child: const Text('Limpar'),
             ),
             const SizedBox(height: 20),
             Expanded(
@@ -76,6 +75,12 @@ class UserForm extends StatelessWidget {
                       return ListTile(
                         title: Text(user.name ?? ''),
                         subtitle: Text(user.gender ?? ''),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () {
+                            userController.deleteUser(index);
+                          },
+                        ),
                       );
                     },
                   )),
